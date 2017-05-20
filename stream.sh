@@ -17,6 +17,7 @@ SOURCE="tcp://192.168.1.1:5555"
 ffmpeg \
     -i "$SOURCE" \
     -f lavfi -i anullsrc=r=48000:cl=mono \
+    -vf fps=1/60 img%03d.jpg \
     -vcodec libx264 -pix_fmt yuv420p -preset $QUAL -r $FPS -g $(($FPS * 2)) -b:v $VBR \
     -coder 0 -profile:v baseline -refs 1 -x264opts b-pyramid=0 -r 24 -acodec aac \
     -acodec libmp3lame -ar 44100 -threads 6 -qscale 3 -b:a 712000 -bufsize 512k \
